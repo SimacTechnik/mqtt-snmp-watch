@@ -1,0 +1,20 @@
+{
+  "name": "mqtt-snmp-watch",
+  "version": "1.0.0",
+  "description": "Sending data from SNMP through MQTT protocol",
+  "main": "app.js",
+  "dependencies": {
+    "net-snmp": "^1.2.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "snmp",
+    "mqtt",
+    "watcher"
+  ],
+  "author": "Lukáš Hruška",
+  "license": "MIT"
+}
