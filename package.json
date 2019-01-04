@@ -4,7 +4,8 @@
   "description": "Sending data from SNMP through MQTT protocol",
   "main": "app.js",
   "dependencies": {
-    "net-snmp": "^1.2.4"
+    "net-snmp": "^1.2.4",
+    "mqtt": "^2.18.8"
   },
   "devDependencies": {},
   "scripts": {
