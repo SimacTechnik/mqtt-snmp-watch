@@ -192,8 +192,13 @@ function getData() {
             for (var i = 0; i < varbinds.length; i++)
                 if (snmp.isVarbindError (varbinds[i]))
                     warn(snmp.varbindError(varbinds[i]))
-                else
-                    toSend[oidsObj[varbinds[i].oid]] = varbinds[i].value;
+                else {
+                        if(Buffer.isBuffer(varbinds[i].value)){
+                            toSend[oidsObj[varbinds[i].oid]] = varbinds[i].value.toString('utf8');
+                        } else {
+                            toSend[oidsObj[varbinds[i].oid]] = varbinds[i].value;
+                        }
+                    }
             dataBuffer.push(toSend);
         }
     });
