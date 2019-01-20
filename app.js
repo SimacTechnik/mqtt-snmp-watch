@@ -75,7 +75,7 @@ client.on('connect', function () {
  });
 
  client.on('reconnect', function () {
-    log("Reconnecting to MQTT");
+     //log("Reconnecting to MQTT");
      connected = false;
      if(mqttInterval != null) {
         clearInterval(mqttInterval);
@@ -84,7 +84,7 @@ client.on('connect', function () {
  });
 
  client.on('close', function () {
-     log("MQTT connection closed");
+     //log("MQTT connection closed");
      connected = false;
      if(mqttInterval != null) {
         clearInterval(mqttInterval);
@@ -161,6 +161,12 @@ if(settings["interval"] == null) {
 
 let interval = settings["interval"];
 
+if(settings["submitEvery"] == null) {
+    err("Missing submitEvery key in settings.json file");
+}
+
+let submitEvery = settings["submitEvery"];
+
 if(settings["community"] == null) {
     err("Missing community key in settings.json file");
 }
@@ -186,7 +192,7 @@ var session = snmp.createSession(ip, community);
 function getData() {
     session.get (oids, function (error, varbinds) {
         if (error) {
-            warn(error);
+            //warn(error);
         } else {
             var toSend = {};
             for (var i = 0; i < varbinds.length; i++)
@@ -200,6 +206,8 @@ function getData() {
                         }
                     }
             dataBuffer.push(toSend);
+            clearInterval(snmpInterval);
+            setTimeout(function(){snmpInterval = setInterval(getData, interval);}, submitEvery*60000);
         }
     });
 }
