@@ -192,6 +192,7 @@ var session = snmp.createSession(ip, community);
 function getData() {
     session.get (oids, function (error, varbinds) {
         if (error) {
+            setTimeout(getData, interval);
             //warn(error);
         } else {
             var toSend = {};
@@ -206,10 +207,9 @@ function getData() {
                         }
                     }
             dataBuffer.push(toSend);
-            clearInterval(snmpInterval);
-            setTimeout(function(){snmpInterval = setInterval(getData, interval);}, submitEvery*60000);
+            setTimeout(getData, submitEvery*60000);
         }
     });
 }
 
-snmpInterval = setInterval(getData, interval);
+getData();
